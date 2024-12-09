@@ -1,101 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
 	const stars = document.querySelectorAll('.button-star');
-	let currentRating = 0;  
-
+	let currentRating = 0;
+  
 	const noteForm = document.querySelector("#note-form");
-  const messageInput = document.querySelector("#message-input");
-  const termsCheckbox = document.querySelector("#terms-checkbox");
-
-  noteForm.addEventListener("submit", function (event) {
-    event.preventDefault(); 
-
-    messageInput.classList.remove("is-invalid");
-    termsCheckbox.classList.remove("is-invalid");
-
-    
-    if (messageInput.value.trim() === "") {
-      messageInput.classList.add("is-invalid");
-      messageInput.focus(); 
-      return; 
-    }
-
-    
-    if (!termsCheckbox.checked) {
-      termsCheckbox.classList.add("is-invalid");
-      termsCheckbox.focus(); 
-      return; 
-    }
-
-    const noteParagraph = document.createElement("p");
-    noteParagraph.classList.add("card-text");
-    noteParagraph.textContent = messageInput.value;
-
-    
-    const noteSection = document.querySelector("#detail-filmu");
-    const existingNote = noteSection.querySelector(".card-text");
-    if (existingNote) {
-      existingNote.remove(); 
-    }
-    noteSection.appendChild(noteParagraph);
-
-    
-    noteForm.reset();
-  });
-
-	
-	function updateStars(rating) {
-	  stars.forEach(star => {
+	const messageInput = document.querySelector("#message-input");
+	const termsCheckbox = document.querySelector("#terms-checkbox");
+  
+	noteForm.addEventListener("submit", function (event) {
+	  event.preventDefault();
+  
+	  messageInput.classList.remove("is-invalid");
+	  termsCheckbox.classList.remove("is-invalid");
+  
+	  if (messageInput.value.trim() === "") {
+		messageInput.classList.add("is-invalid");
+		messageInput.focus();
+		return;}
+  
+	  if (!termsCheckbox.checked) {
+		termsCheckbox.classList.add("is-invalid");
+		termsCheckbox.focus();
+		return;}
+  
+	  const noteParagraph = document.createElement("p");
+	  noteParagraph.classList.add("card-text");
+	  noteParagraph.textContent = messageInput.value;
+  
+	  const noteSection = document.querySelector("#detail-filmu");
+	  const existingNote = noteSection.querySelector(".card-text");
+	  if (existingNote) {
+		existingNote.remove();
+	  }
+	  noteSection.appendChild(noteParagraph);
+  
+	  noteForm.reset();
+	});
+  
+	function updateStars(rating) {stars.forEach(star => {
 		const starRating = parseInt(star.getAttribute('data-rating'));
 		if (starRating <= rating) {
-		  star.classList.remove('far');  
-		  star.classList.add('fas');     
+		  star.classList.remove('far');
+		  star.classList.add('fas');
 		} else {
-		  star.classList.remove('fas'); 
-		  star.classList.add('far');     
+		  star.classList.remove('fas');
+		  star.classList.add('far');
 		}
-	  });
-	}
+	  });}
   
-	
 	stars.forEach(star => {
 	  star.addEventListener('mouseenter', function () {
 		const rating = parseInt(star.getAttribute('data-rating'));
-		updateStars(rating);  
+		updateStars(rating);
 	  });
   
 	  star.addEventListener('mouseleave', function () {
-		updateStars(currentRating);  
+		updateStars(currentRating);
 	  });
   
-	  
-	  star.addEventListener('click', function () {
-		currentRating = parseInt(star.getAttribute('data-rating'));  
-		updateStars(currentRating); 
+	  star.addEventListener('click', function () {currentRating = parseInt(star.getAttribute('data-rating'));
+		updateStars(currentRating);
 	  });
 	});
   
 	const filmId = window.location.hash.substring(1);
-  
-	
-	const hash = window.location.hash.substring(1); 
-	if (hash) {
-	  const film = filmy.find(f => f.id === hash);
-  
-	  if (film) {
-		
-		document.querySelector('#detail-filmu .card-title').textContent = film.nazev;
-		document.querySelector('#detail-filmu .card-text').textContent = film.popis;
-		document.querySelector('#film-plakat').src = film.plakat.url;
-		document.querySelector('#film-plakat').alt = `Plakát k filmu ${film.nazev}`;
-  
-		
+
+    const hash = window.location.hash.substring(1);
+
+	if (hash) {const film = filmy.find(f => f.id === hash);
+    if (film) {document.querySelector('#detail-filmu .card-title').textContent = film.nazev;
+		       document.querySelector('#detail-filmu .card-text').textContent = film.popis;
+		       document.querySelector('#film-plakat').src = film.plakat.url;
+		       document.querySelector('#film-plakat').alt = `Plakát k filmu ${film.nazev}`;
+			   
 		const premiera = dayjs(film.premiera).format('D. M. YYYY');
-		document.querySelector('#premiera').innerHTML = `Premiéra <strong>${premiera}</strong>`;
-  
+		const premieryElement = document.querySelector('#premiera');
 		
-		let posledniHodnoceni = 0; 
+		// Výpočet rozdílu v počtu dní
+		const dnes = dayjs(); // Aktuální datum
+		const premieraDatum = dayjs(film.premiera);
+		const rozdil = premieraDatum.diff(dnes, 'days'); // Rozdíl v dnech
   
-		
+		// Zobrazení správného textu
+		let rozdilText = "";
+          if (rozdil === 0) {
+            rozdilText = "Premiéra je dnes.";
+        } else if (rozdil > 0) {
+            rozdilText = `Premiéra bude za ${rozdil} ${spravnyTvarDnu(rozdil)}.`;
+        } else {
+            rozdilText = `Premiéra byla před ${Math.abs(rozdil)} ${spravnyTvarDnu(Math.abs(rozdil), true)}.`; // minuly=true
+}
+  
+		premieryElement.innerHTML = `Premiéra <strong>${premiera}</strong><br>${rozdilText}`;
+  
+		let posledniHodnoceni = 0;  
 		function zvyrazniHvezdicky(pocetHvezdicek) {
 		  const hvezdicky = document.querySelectorAll('.button-star i');
 		  hvezdicky.forEach((hvezdicka, index) => {
@@ -109,25 +106,18 @@ document.addEventListener("DOMContentLoaded", function () {
 		  });
 		}
   
-		
-		function kliknutaHvezdicka(event) {
-		  const pocetHvezdicek = parseInt(event.target.dataset.value); 
-		  zvyrazniHvezdicky(pocetHvezdicek); 
-		  posledniHodnoceni = pocetHvezdicek; 
-		}
-  
-		
+		function kliknutaHvezdicka(event) {const pocetHvezdicek = parseInt(event.target.dataset.value);
+		  zvyrazniHvezdicky(pocetHvezdicek);
+		  posledniHodnoceni = pocetHvezdicek;}
+
 		function hoverHvezdicky(event) {
-		  const pocetHvezdicek = parseInt(event.target.dataset.value); 
-		  zvyrazniHvezdicky(pocetHvezdicek); 
-		}
+		  const pocetHvezdicek = parseInt(event.target.dataset.value);
+		  zvyrazniHvezdicky(pocetHvezdicek);}
   
-		
-		function opusteniHvezdicky() {
-		  zvyrazniHvezdicky(posledniHodnoceni); 
-		}
-  
-		
+		function opusteniHvezdicky() 
+		{
+		  zvyrazniHvezdicky(posledniHodnoceni);}
+
 		const hvezdicky = document.querySelectorAll('.button-star');
 		hvezdicky.forEach(hvezdicka => {
 		  hvezdicka.addEventListener('click', kliknutaHvezdicka);
@@ -135,20 +125,27 @@ document.addEventListener("DOMContentLoaded", function () {
 		  hvezdicka.addEventListener('mouseleave', opusteniHvezdicky);
 		});
   
-		
-		if (film.hodnoceni) {
-		  zvyrazniHvezdicky(film.hodnoceni); 
-		  posledniHodnoceni = film.hodnoceni; 
+		if (film.hodnoceni) 
+			{
+		  zvyrazniHvezdicky(film.hodnoceni);
+		  posledniHodnoceni = film.hodnoceni;
 		}
-	  } else {
-		
+	  } else 
+	  {
 		document.querySelector('#detail-filmu .card-title').textContent = "Film nebyl nalezen";
-	  }
-	}
-  });
+	  }}
   
-
-
+	function spravnyTvarDnu(dny, minuly = false) {
+		if (dny === 1) {
+		  return "den";
+		} else if (dny >= 2 && dny <= 4) {
+		  return "dny";
+		} else if (minuly) {
+		  return "dny"; // Pro minulý čas: "před X dny"
+		} else {
+		  return "dní"; // Pro budoucí čas: "za X dní"
+		}
+	  }});
 
 const filmy = [
 	{
@@ -156,8 +153,8 @@ const filmy = [
 		nazev: 'Pelíšky',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/165/059/165059101_56d52a.jpg',
-			sirka: 663,
-			vyska: 909,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'České drama z období 1968.',
 		popis:
@@ -254,6 +251,32 @@ const filmy = [
 		popis:
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
+	},
+	{
+		id: 'pocatek',
+		nazev: 'Počátek',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/160/620/160620903_69696f.jpg',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Akční / Sci-Fi / Thriller / Mysteriózní / Dobrodružný',
+		popis:
+			'Dom Cobb (Leonardo DiCaprio) je velmi zkušený zloděj a jeho největší mistrovství je v krádeži nejcennějších tajemství. Ovšem není to jen tak obyčejný zloděj. Dom krade myšlenky z lidského podvědomí v době, kdy lidská mysl je nejzranitelnější – když člověk spí. Cobbova nevšední dovednost z něj dělá nejen velmi vyhledávaného experta, ale také ohroženého uprchlíka. Musel obětovat vše, co kdy miloval. Nyní se mu však nabízí šance na vykoupení. Může získat zpět svůj život. Tato poslední zakázka je nejen velmi riskantní, ale zdá se, že i nemožná. Tentokrát nemá za úkol myšlenku ukrást, ale naopak ji zasadit do něčí mysli. Pokud uspěje, bude to dokonalý zločin.',
+		premiera: '2010-07-8',
+	},
+	{
+		id: 'krotitele-duchu',
+		nazev: 'Krotitelé duchů',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/159/468/159468507_567c76.jpg',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Sci-Fi / Fantasy / Komedie / Dobrodružný',
+		popis:
+			'Nachystejte se na komediální klasiku! Když se doktoři Venkman (Bill Murray), Stantz (Dan Aykroyd) a Spengler (Harold Ramis) z katedry parapsychologie nenadále ocitnou na dlažbě, rozhodnou se vydat na cestu lovců duchů - nevábných a občas poněkud drzých potvor. Sotva otevřou dveře, už se jim hrnou první zakázky. Největší výzva ale čeká na stopaře všeho nevysvětlitelného ve chvíli, kdy krásná Dana Barret (Sigourney Weaver) za dveřmi své chladničky objevuje bránu do pekel. Teď mají krotitelé duchů za zády celý svět a je jen na nich, jestli v této nekonečně zábavné akční komedii uchrání Manhattan před totálním šílenstvím! ',
+		premiera: '1984-06-16',
 	},
 ]
 

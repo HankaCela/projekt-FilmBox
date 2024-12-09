@@ -4,8 +4,8 @@ const filmy = [
 		nazev: 'Pelíšky',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/165/059/165059101_56d52a.jpg',
-			sirka: 663,
-			vyska: 909,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'České drama z období 1968.',
 		popis:
@@ -102,6 +102,32 @@ const filmy = [
 		popis:
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
+	},
+	{
+		id: 'pocatek',
+		nazev: 'Počátek',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/160/620/160620903_69696f.jpg',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Akční / Sci-Fi / Thriller / Mysteriózní / Dobrodružný',
+		popis:
+			'Dom Cobb (Leonardo DiCaprio) je velmi zkušený zloděj a jeho největší mistrovství je v krádeži nejcennějších tajemství. Ovšem není to jen tak obyčejný zloděj. Dom krade myšlenky z lidského podvědomí v době, kdy lidská mysl je nejzranitelnější – když člověk spí. Cobbova nevšední dovednost z něj dělá nejen velmi vyhledávaného experta, ale také ohroženého uprchlíka. Musel obětovat vše, co kdy miloval. Nyní se mu však nabízí šance na vykoupení. Může získat zpět svůj život. Tato poslední zakázka je nejen velmi riskantní, ale zdá se, že i nemožná. Tentokrát nemá za úkol myšlenku ukrást, ale naopak ji zasadit do něčí mysli. Pokud uspěje, bude to dokonalý zločin.',
+		premiera: '2010-07-8',
+	},
+	{
+		id: 'krotitele-duchu',
+		nazev: 'Krotitelé duchů',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/159/468/159468507_567c76.jpg',
+			sirka: 420,
+			vyska: 592,
+		},
+		ochutnavka: 'Sci-Fi / Fantasy / Komedie / Dobrodružný',
+		popis:
+			'Nachystejte se na komediální klasiku! Když se doktoři Venkman (Bill Murray), Stantz (Dan Aykroyd) a Spengler (Harold Ramis) z katedry parapsychologie nenadále ocitnou na dlažbě, rozhodnou se vydat na cestu lovců duchů - nevábných a občas poněkud drzých potvor. Sotva otevřou dveře, už se jim hrnou první zakázky. Největší výzva ale čeká na stopaře všeho nevysvětlitelného ve chvíli, kdy krásná Dana Barret (Sigourney Weaver) za dveřmi své chladničky objevuje bránu do pekel. Teď mají krotitelé duchů za zády celý svět a je jen na nich, jestli v této nekonečně zábavné akční komedii uchrání Manhattan před totálním šílenstvím! ',
+		premiera: '1984-06-16',
 	},
 ];
 
