@@ -18,6 +18,7 @@
 			rel="stylesheet"
 		/>
 		<script src="mdb5-standard-UI-kit-free-6.0.1/js/mdb.min.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 		<link rel="stylesheet" href="styly.css" />
 	</head>
 	<body>
@@ -53,93 +54,43 @@
 			<div class="card mb-3" id="detail-filmu">
 				<div class="row g-0">
 					<div class="col-md-5">
-						<img
-							src="https://via.placeholder.com/663x909?text=Plak%C3%A1t"
-							alt="plakát"
-							class="img-fluid rounded-start"
-							width="663"
-							height="909"
-						/>
+						<img id="film-plakat" src="https://via.placeholder.com/663x909?text=Plak%C3%A1t" alt="plakát" class="img-fluid rounded-start" width="663" height="909"/>
 					</div>
 					<div class="col-md-7">
 						<div class="card-body">
 							<h5 class="card-title">Sem patří název filmu</h5>
-							<p class="card-text">Tady bude dluhý popis filmu.</p>
+							<p class="card-text">Tady bude dlouhý popis filmu.</p>
 							<p class="card-text">
-								<small class="text-muted" id="premiera"
-									>Premiéra <strong>24. prosince 2022</strong>, což je za 24
-									dní.</small
-								>
+								<small class="text-muted" id="premiera">Premiéra 24. prosince 2022, což je za 24 dní.</small>
 							</p>
 							<h6>Hodnocení</h6>
-							<div class="stars">
-								<button
-									class="far fa-star button-star"
-									data-mdb-toggle="tooltip"
-									title="Nic moc"
-								>
-									1
-								</button>
-								<button
-									class="far fa-star button-star"
-									data-mdb-toggle="tooltip"
-									title="Ucházející"
-								>
-									2
-								</button>
-								<button
-									class="far fa-star button-star"
-									data-mdb-toggle="tooltip"
-									title="Dobrý"
-								>
-									3
-								</button>
-								<button
-									class="far fa-star button-star"
-									data-mdb-toggle="tooltip"
-									title="Skvělý"
-								>
-									4
-								</button>
-								<button
-									class="far fa-star button-star"
-									data-mdb-toggle="tooltip"
-									title="Úžasný"
-								>
-									5
-								</button>
-							</div>
+                    <div class="stars">
+                        <button class="far fa-star button-star" data-rating="1"></button>
+                        <button class="far fa-star button-star" data-rating="2"></button>
+                        <button class="far fa-star button-star" data-rating="3"></button>
+                        <button class="far fa-star button-star" data-rating="4"></button>
+                        <button class="far fa-star button-star" data-rating="5"></button>
+                    </div>
 
+
+		
 							<h6 class="mt-4">Poznámka</h6>
 							<form id="note-form">
 								<div class="row">
 									<div class="col-md-6 col-lg-7 col-xl-8 mb-2">
 										<div class="form-outline">
-											<textarea
-												class="form-control"
-												id="message-input"
-												rows="4"
-											></textarea>
-											<label class="form-label" for="message-input"
-												>Text poznámky</label
-											>
+											<textarea class="form-control" id="message-input" rows="4"></textarea>
+											<label class="form-label" for="message-input">Text poznámky</label>
 										</div>
 									</div>
 									<div class="col-md-6 col-lg-5 col-xl-4">
 										<div class="form-check d-flex justify-content-center mb-2">
-											<input
-												class="form-check-input me-2 mb-2"
-												type="checkbox"
-												value=""
-												id="terms-checkbox"
-											/>
+											<input class="form-check-input me-2 mb-2" type="checkbox" value="" id="terms-checkbox" />
 											<label class="form-check-label" for="terms-checkbox">
-												Souhlasím se všeobecnými podmínky užívání.
+												Souhlasím se všeobecnými podmínkami užívání.
 											</label>
 										</div>
-										<button type="submit" class="btn btn-primary btn-block">
-											Uložit
-										</button>
+										<button type="submit" class="btn btn-primary btn-block">Uložit</button>
 									</div>
 								</div>
 							</form>

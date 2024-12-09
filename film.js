@@ -1,3 +1,155 @@
+document.addEventListener("DOMContentLoaded", function () {
+	const stars = document.querySelectorAll('.button-star');
+	let currentRating = 0;  
+
+	const noteForm = document.querySelector("#note-form");
+  const messageInput = document.querySelector("#message-input");
+  const termsCheckbox = document.querySelector("#terms-checkbox");
+
+  noteForm.addEventListener("submit", function (event) {
+    event.preventDefault(); 
+
+    messageInput.classList.remove("is-invalid");
+    termsCheckbox.classList.remove("is-invalid");
+
+    
+    if (messageInput.value.trim() === "") {
+      messageInput.classList.add("is-invalid");
+      messageInput.focus(); 
+      return; 
+    }
+
+    
+    if (!termsCheckbox.checked) {
+      termsCheckbox.classList.add("is-invalid");
+      termsCheckbox.focus(); 
+      return; 
+    }
+
+    const noteParagraph = document.createElement("p");
+    noteParagraph.classList.add("card-text");
+    noteParagraph.textContent = messageInput.value;
+
+    
+    const noteSection = document.querySelector("#detail-filmu");
+    const existingNote = noteSection.querySelector(".card-text");
+    if (existingNote) {
+      existingNote.remove(); 
+    }
+    noteSection.appendChild(noteParagraph);
+
+    
+    noteForm.reset();
+  });
+
+	
+	function updateStars(rating) {
+	  stars.forEach(star => {
+		const starRating = parseInt(star.getAttribute('data-rating'));
+		if (starRating <= rating) {
+		  star.classList.remove('far');  
+		  star.classList.add('fas');     
+		} else {
+		  star.classList.remove('fas'); 
+		  star.classList.add('far');     
+		}
+	  });
+	}
+  
+	
+	stars.forEach(star => {
+	  star.addEventListener('mouseenter', function () {
+		const rating = parseInt(star.getAttribute('data-rating'));
+		updateStars(rating);  
+	  });
+  
+	  star.addEventListener('mouseleave', function () {
+		updateStars(currentRating);  
+	  });
+  
+	  
+	  star.addEventListener('click', function () {
+		currentRating = parseInt(star.getAttribute('data-rating'));  
+		updateStars(currentRating); 
+	  });
+	});
+  
+	const filmId = window.location.hash.substring(1);
+  
+	
+	const hash = window.location.hash.substring(1); 
+	if (hash) {
+	  const film = filmy.find(f => f.id === hash);
+  
+	  if (film) {
+		
+		document.querySelector('#detail-filmu .card-title').textContent = film.nazev;
+		document.querySelector('#detail-filmu .card-text').textContent = film.popis;
+		document.querySelector('#film-plakat').src = film.plakat.url;
+		document.querySelector('#film-plakat').alt = `Plakát k filmu ${film.nazev}`;
+  
+		
+		const premiera = dayjs(film.premiera).format('D. M. YYYY');
+		document.querySelector('#premiera').innerHTML = `Premiéra <strong>${premiera}</strong>`;
+  
+		
+		let posledniHodnoceni = 0; 
+  
+		
+		function zvyrazniHvezdicky(pocetHvezdicek) {
+		  const hvezdicky = document.querySelectorAll('.button-star i');
+		  hvezdicky.forEach((hvezdicka, index) => {
+			if (index < pocetHvezdicek) {
+			  hvezdicka.classList.remove('far');
+			  hvezdicka.classList.add('fas');
+			} else {
+			  hvezdicka.classList.remove('fas');
+			  hvezdicka.classList.add('far');
+			}
+		  });
+		}
+  
+		
+		function kliknutaHvezdicka(event) {
+		  const pocetHvezdicek = parseInt(event.target.dataset.value); 
+		  zvyrazniHvezdicky(pocetHvezdicek); 
+		  posledniHodnoceni = pocetHvezdicek; 
+		}
+  
+		
+		function hoverHvezdicky(event) {
+		  const pocetHvezdicek = parseInt(event.target.dataset.value); 
+		  zvyrazniHvezdicky(pocetHvezdicek); 
+		}
+  
+		
+		function opusteniHvezdicky() {
+		  zvyrazniHvezdicky(posledniHodnoceni); 
+		}
+  
+		
+		const hvezdicky = document.querySelectorAll('.button-star');
+		hvezdicky.forEach(hvezdicka => {
+		  hvezdicka.addEventListener('click', kliknutaHvezdicka);
+		  hvezdicka.addEventListener('mouseenter', hoverHvezdicky);
+		  hvezdicka.addEventListener('mouseleave', opusteniHvezdicky);
+		});
+  
+		
+		if (film.hodnoceni) {
+		  zvyrazniHvezdicky(film.hodnoceni); 
+		  posledniHodnoceni = film.hodnoceni; 
+		}
+	  } else {
+		
+		document.querySelector('#detail-filmu .card-title').textContent = "Film nebyl nalezen";
+	  }
+	}
+  });
+  
+
+
+
 const filmy = [
 	{
 		id: 'pelisky',
@@ -104,3 +256,4 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
+

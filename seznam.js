@@ -105,31 +105,23 @@ const filmy = [
 	},
 ];
 
-// Dynamicky generuje seznam filmů
-const seznamFilmuDiv = document.getElementById('seznam-filmu');
+const seznamFilmuDiv = document.querySelector('#seznam-filmu');
+seznamFilmuDiv.innerHTML = ''; 
 
 filmy.forEach((film) => {
-  // Vytvoření karty filmu
-  const filmCard = document.createElement('div');
-  filmCard.classList.add('col');
+    const filmHTML = `
+        <div class="col">
+            <div class="card">
+                <img src="${film.plakat.url}" width="780" height="520" class="card-img-top" alt="plakát">
+                <div class="card-body">
+                    <h5 class="card-title">${film.nazev}</h5>
+                    <p class="card-text">${film.ochutnavka}</p>
+                    <a href="film.html#${film.id}" class="btn btn-primary">Přehrát</a>
+                </div>
+            </div>
+        </div>
+    `;
 
-  filmCard.innerHTML = `
-    <div class="card">
-      <img 
-        src="${film.plakat.url}" 
-        width="${film.plakat.sirka}" 
-        height="${film.plakat.vyska}" 
-        class="card-img-top" 
-        alt="Plakát filmu ${film.nazev}" 
-      />
-      <div class="card-body">
-        <h5 class="card-title">${film.nazev}</h5>
-        <p class="card-text">${film.ochutnavka}</p>
-        <a href="film.html?id=${film.id}" class="btn btn-primary">Přehrát</a>
-      </div>
-    </div>
-  `;
-
-  // Přidání karty do seznamu
-  seznamFilmuDiv.appendChild(filmCard);
+    seznamFilmuDiv.innerHTML += filmHTML; 
 });
+

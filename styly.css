@@ -115,3 +115,87 @@ video[controls] + .player-controls {
 .form-control.is-invalid {
 	margin-bottom: 0;
 }
+.is-invalid {
+	border-color: #dc3545; 
+	background-color: #f8d7da; 
+  }
+  
+  .is-invalid ~ .form-label {
+	color: #dc3545; 
+  }
+
+#menu-polozky {
+	display: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+  }
+  
+  #menu-polozky.show {
+	display: block;
+  }
+  
+  #menu-tlacitko {
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	color: inherit;
+	cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+	nav {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: flex-start;
+	}
+  
+	#menu-tlacitko {
+	  align-self: flex-end;
+	}
+  
+	#menu-polozky {
+	  width: 100%;
+	}
+  }
+  
+.far.fa-star, .fas.fa-star {
+	font-size: 2rem;
+	color: #ffd700; 
+	cursor: pointer;
+  }
+  
+  .far.fa-star:hover {
+	color: #ffa500; 
+  }
+  
+  .stars {
+	display: flex;
+	color: rgb(255, 174, 0); 
+  }
+  
+  .button-star {
+	font-size: 2rem; 
+	background-color: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+  }
+  
+  .button-star:not(:last-child) {
+	padding-right: 0.1rem; 
+  }
+  
+  .button-star:not(:first-child) {
+	padding-left: 0.1rem;
+  }
+  
+  
+  .fas.fa-star {
+	color: #ffd700; 
+  }
+  
+  .far.fa-star {
+	color: #d3d3d3; 
+  }
+  
