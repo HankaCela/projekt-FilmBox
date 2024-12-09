@@ -15,12 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	  if (messageInput.value.trim() === "") {
 		messageInput.classList.add("is-invalid");
 		messageInput.focus();
-		return;}
+		return;
+	  }
   
 	  if (!termsCheckbox.checked) {
 		termsCheckbox.classList.add("is-invalid");
 		termsCheckbox.focus();
-		return;}
+		return;
+	  }
   
 	  const noteParagraph = document.createElement("p");
 	  noteParagraph.classList.add("card-text");
@@ -36,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	  noteForm.reset();
 	});
   
-	function updateStars(rating) {stars.forEach(star => {
+	function updateStars(rating) {
+	  stars.forEach(star => {
 		const starRating = parseInt(star.getAttribute('data-rating'));
 		if (starRating <= rating) {
 		  star.classList.remove('far');
@@ -45,7 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		  star.classList.remove('fas');
 		  star.classList.add('far');
 		}
-	  });}
+	  });
+	}
   
 	stars.forEach(star => {
 	  star.addEventListener('mouseenter', function () {
@@ -57,42 +61,45 @@ document.addEventListener("DOMContentLoaded", function () {
 		updateStars(currentRating);
 	  });
   
-	  star.addEventListener('click', function () {currentRating = parseInt(star.getAttribute('data-rating'));
+	  star.addEventListener('click', function () {
+		currentRating = parseInt(star.getAttribute('data-rating'));
 		updateStars(currentRating);
 	  });
 	});
   
-	const filmId = window.location.hash.substring(1);
-
-    const hash = window.location.hash.substring(1);
-
-	if (hash) {const film = filmy.find(f => f.id === hash);
-    if (film) {document.querySelector('#detail-filmu .card-title').textContent = film.nazev;
-		       document.querySelector('#detail-filmu .card-text').textContent = film.popis;
-		       document.querySelector('#film-plakat').src = film.plakat.url;
-		       document.querySelector('#film-plakat').alt = `Plakát k filmu ${film.nazev}`;
-			   
+	const filmId = window.location.hash.substring(1); const hash = window.location.hash.substring(1);
+  
+	if (hash) {
+	  const film = filmy.find(f => f.id === hash);
+  
+	  if (film) {
+		document.querySelector('#detail-filmu .card-title').textContent = film.nazev;
+		document.querySelector('#detail-filmu .card-text').textContent = film.popis;
+		document.querySelector('#film-plakat').src = film.plakat.url;
+		document.querySelector('#film-plakat').alt = `Plakát k filmu ${film.nazev}`;
+  
 		const premiera = dayjs(film.premiera).format('D. M. YYYY');
 		const premieryElement = document.querySelector('#premiera');
-		
+  
 		// Výpočet rozdílu v počtu dní
-		const dnes = dayjs(); // Aktuální datum
+		const dnes = dayjs();
 		const premieraDatum = dayjs(film.premiera);
-		const rozdil = premieraDatum.diff(dnes, 'days'); // Rozdíl v dnech
+		const rozdil = premieraDatum.diff(dnes, 'days');
   
 		// Zobrazení správného textu
 		let rozdilText = "";
-          if (rozdil === 0) {
-            rozdilText = "Premiéra je dnes.";
-        } else if (rozdil > 0) {
-            rozdilText = `Premiéra bude za ${rozdil} ${spravnyTvarDnu(rozdil)}.`;
-        } else {
-            rozdilText = `Premiéra byla před ${Math.abs(rozdil)} ${spravnyTvarDnu(Math.abs(rozdil), true)}.`; // minuly=true
-}
+		if (rozdil === 0) {
+		  rozdilText = "Premiéra je dnes.";
+		} else if (rozdil > 0) {
+		  rozdilText = `Premiéra bude za ${rozdil} ${spravnyTvarDnu(rozdil)}.`;
+		} else {
+		  rozdilText = `Premiéra byla před ${Math.abs(rozdil)} ${spravnyTvarDnu(Math.abs(rozdil), true)}.`;
+		}
   
 		premieryElement.innerHTML = `Premiéra <strong>${premiera}</strong><br>${rozdilText}`;
   
-		let posledniHodnoceni = 0;  
+		let posledniHodnoceni = 0;
+  
 		function zvyrazniHvezdicky(pocetHvezdicek) {
 		  const hvezdicky = document.querySelectorAll('.button-star i');
 		  hvezdicky.forEach((hvezdicka, index) => {
@@ -106,18 +113,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		  });
 		}
   
-		function kliknutaHvezdicka(event) {const pocetHvezdicek = parseInt(event.target.dataset.value);
+		function kliknutaHvezdicka(event) {
+		  const pocetHvezdicek = parseInt(event.target.dataset.value);
 		  zvyrazniHvezdicky(pocetHvezdicek);
-		  posledniHodnoceni = pocetHvezdicek;}
-
+		  posledniHodnoceni = pocetHvezdicek;
+		}
+  
 		function hoverHvezdicky(event) {
 		  const pocetHvezdicek = parseInt(event.target.dataset.value);
-		  zvyrazniHvezdicky(pocetHvezdicek);}
+		  zvyrazniHvezdicky(pocetHvezdicek);
+		}
   
-		function opusteniHvezdicky() 
-		{
-		  zvyrazniHvezdicky(posledniHodnoceni);}
-
+		function opusteniHvezdicky() {
+		  zvyrazniHvezdicky(posledniHodnoceni);
+		}
+  
 		const hvezdicky = document.querySelectorAll('.button-star');
 		hvezdicky.forEach(hvezdicka => {
 		  hvezdicka.addEventListener('click', kliknutaHvezdicka);
@@ -125,27 +135,28 @@ document.addEventListener("DOMContentLoaded", function () {
 		  hvezdicka.addEventListener('mouseleave', opusteniHvezdicky);
 		});
   
-		if (film.hodnoceni) 
-			{
+		if (film.hodnoceni) {
 		  zvyrazniHvezdicky(film.hodnoceni);
 		  posledniHodnoceni = film.hodnoceni;
 		}
-	  } else 
-	  {
+	  } else {
 		document.querySelector('#detail-filmu .card-title').textContent = "Film nebyl nalezen";
-	  }}
+	  }
+	}
   
 	function spravnyTvarDnu(dny, minuly = false) {
-		if (dny === 1) {
-		  return "den";
-		} else if (dny >= 2 && dny <= 4) {
-		  return "dny";
-		} else if (minuly) {
-		  return "dny"; // Pro minulý čas: "před X dny"
-		} else {
-		  return "dní"; // Pro budoucí čas: "za X dní"
-		}
-	  }});
+	  if (dny === 1) {
+		return "den";
+	  } else if (dny >= 2 && dny <= 4) {
+		return "dny";
+	  } else if (minuly) {
+		return "dny"; // Pro minulý čas: "před X dny"
+	  } else {
+		return "dní"; // Pro budoucí čas: "za X dní"
+	  }
+	}
+  });
+  
 
 const filmy = [
 	{
@@ -180,7 +191,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/158/280/158280506_017bab.jpg',
 			sirka: 420,
-			vyska: 594,
+			vyska: 595,
 		},
 		ochutnavka: 'Romantické Sci-Fi z blízké budoucnosti',
 		popis:
@@ -192,8 +203,8 @@ const filmy = [
 		nazev: 'RRRrrrr!!!',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/162/393/162393560_2aca32.jpg',
-			sirka: 663,
-			vyska: 919,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'Francouzská komedie.',
 		popis:
@@ -206,7 +217,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/163/781/163781903_f1e217.png',
 			sirka: 420,
-			vyska: 593,
+			vyska: 595,
 		},
 		ochutnavka: 'Česká komedie.',
 		popis:
@@ -219,7 +230,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/002/166002844_2e67c1.jpg',
 			sirka: 420,
-			vyska: 622,
+			vyska: 595,
 		},
 		ochutnavka: 'Americký thriller o IT pracovnici s agorafobií.',
 		popis:
@@ -231,8 +242,8 @@ const filmy = [
 		nazev: 'Petrolejové lampy',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/163/486/163486952_22889f.jpg',
-			sirka: 663,
-			vyska: 937,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'Sugestivní filmové drama podle románu Jaroslava Havlíčka.',
 		popis:
@@ -245,7 +256,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/933/166933672_58ebbc.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Česká vánoční pohádka z Krkonoš.',
 		popis:
@@ -258,7 +269,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/160/620/160620903_69696f.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Akční / Sci-Fi / Thriller / Mysteriózní / Dobrodružný',
 		popis:
@@ -271,7 +282,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/159/468/159468507_567c76.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Sci-Fi / Fantasy / Komedie / Dobrodružný',
 		popis:

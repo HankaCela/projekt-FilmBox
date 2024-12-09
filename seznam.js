@@ -31,7 +31,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/158/280/158280506_017bab.jpg',
 			sirka: 420,
-			vyska: 594,
+			vyska: 595,
 		},
 		ochutnavka: 'Romantické Sci-Fi z blízké budoucnosti',
 		popis:
@@ -43,8 +43,8 @@ const filmy = [
 		nazev: 'RRRrrrr!!!',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/162/393/162393560_2aca32.jpg',
-			sirka: 663,
-			vyska: 919,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'Francouzská komedie.',
 		popis:
@@ -57,7 +57,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/163/781/163781903_f1e217.png',
 			sirka: 420,
-			vyska: 593,
+			vyska: 595,
 		},
 		ochutnavka: 'Česká komedie.',
 		popis:
@@ -70,7 +70,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/002/166002844_2e67c1.jpg',
 			sirka: 420,
-			vyska: 622,
+			vyska: 595,
 		},
 		ochutnavka: 'Americký thriller o IT pracovnici s agorafobií.',
 		popis:
@@ -82,8 +82,8 @@ const filmy = [
 		nazev: 'Petrolejové lampy',
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/163/486/163486952_22889f.jpg',
-			sirka: 663,
-			vyska: 937,
+			sirka: 420,
+			vyska: 595,
 		},
 		ochutnavka: 'Sugestivní filmové drama podle románu Jaroslava Havlíčka.',
 		popis:
@@ -96,7 +96,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w420/files/images/film/posters/166/933/166933672_58ebbc.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Česká vánoční pohádka z Krkonoš.',
 		popis:
@@ -109,7 +109,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/160/620/160620903_69696f.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Akční / Sci-Fi / Thriller / Mysteriózní / Dobrodružný',
 		popis:
@@ -122,7 +122,7 @@ const filmy = [
 		plakat: {
 			url: 'https://image.pmgstatic.com/cache/resized/w360/files/images/film/posters/159/468/159468507_567c76.jpg',
 			sirka: 420,
-			vyska: 592,
+			vyska: 595,
 		},
 		ochutnavka: 'Sci-Fi / Fantasy / Komedie / Dobrodružný',
 		popis:
